@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:allyned/styles.dart';
-import 'package:allyned/widgets/modal_sheet.dart';
+import 'package:allyned/widgets/modal_sheets/modal_sheet.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
