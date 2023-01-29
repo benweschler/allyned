@@ -14,21 +14,21 @@ const double coordRandomization = 0.02898550724;
 const List<CareProvider> dummyCareProviders = [
   CareProvider(
     id: "alsdkjfalskdjf",
-    name: "UCLA Arthur Ashe Center",
+    name: "Wyoming Arthur Ashe Center",
     address: "5837 Sacramento Ave, Richmond CA 94804",
-    coordinates: LatLng(37.42796133580664, -122.085749655962),
+    coordinates: LatLng(43.0760, 43.0760),
   ),
   CareProvider(
     id: "bndsvaf232fs",
-    name: "Kaiser Permenente West Los Angeles Medical Center",
+    name: "Kaiser Permenente Toronto Medical Center",
     address: "5837 Sacramento Ave, Los Angeles CA 94804",
-    coordinates: LatLng(27.42796133580664, -112.085749655962),
+    coordinates: LatLng(43.6532, 79.3832),
   ),
   CareProvider(
     id: "23klsdjvwef3",
-    name: "QWER Hacks!",
+    name: "QWER Hacks (Dallas)!",
     address: "Palisades Room, the Hill",
-    coordinates: LatLng(57.42796133580664, -152.085749655962),
+    coordinates: LatLng(32.7767, 96.7970),
   ),
 ];
 
@@ -75,6 +75,9 @@ HomeownerInfo getBen(LatLng providerLocation) {
   sign = Random().nextDouble() > 0.5 ? 1 : -1;
   newLong += sign * rand * coordRandomization;
 
+  bool providesFood = Random().nextDouble() > 0.5;
+  bool providesTransport = Random().nextDouble() > 0.5;
+
   return HomeownerInfo(
     name: "Ben",
     pronouns: "He/Him",
@@ -84,8 +87,8 @@ HomeownerInfo getBen(LatLng providerLocation) {
     cardBackground: Random().nextInt(6),
     homeInfo: HomeInfo(
       coordinates: LatLng(newLat, newLong),
-      offersTransportation: true,
-      offersMeals: true,
+      offersTransportation: providesFood,
+      offersMeals: providesTransport,
       hiddenHomeInfo: HiddenHomeInfo(
         address: "5837 Sacramento Ave",
         homePhotosPaths: [""],
@@ -103,6 +106,9 @@ HomeownerInfo getIrene(LatLng providerLocation) {
   newLat += sign * rand * coordRandomization;
   newLong += sign * rand * coordRandomization;
 
+  bool providesFood = Random().nextDouble() > 0.5;
+  bool providesTransport = Random().nextDouble() > 0.5;
+
   return HomeownerInfo(
     name: "Irene",
     pronouns: "She/They",
@@ -116,8 +122,8 @@ HomeownerInfo getIrene(LatLng providerLocation) {
     cardBackground: Random().nextInt(6),
     homeInfo: HomeInfo(
       coordinates: LatLng(newLat, newLong),
-      offersTransportation: true,
-      offersMeals: false,
+      offersTransportation: providesFood,
+      offersMeals: providesTransport,
       hiddenHomeInfo: HiddenHomeInfo(
         address: "12 Weyburn Dr",
         homePhotosPaths: [""],
@@ -135,6 +141,9 @@ HomeownerInfo getRebecca(LatLng providerLocation) {
   newLat += sign * rand * coordRandomization;
   newLong += sign * rand * coordRandomization;
 
+  bool providesFood = Random().nextDouble() > 0.5;
+  bool providesTransport = Random().nextDouble() > 0.5;
+
   return HomeownerInfo(
     name: "Rebecca",
     pronouns: "She/Her",
@@ -144,8 +153,8 @@ HomeownerInfo getRebecca(LatLng providerLocation) {
     cardBackground: Random().nextInt(6),
     homeInfo: HomeInfo(
       coordinates: LatLng(newLat, newLong),
-      offersTransportation: false,
-      offersMeals: false,
+      offersTransportation: providesFood,
+      offersMeals: providesTransport,
       hiddenHomeInfo: HiddenHomeInfo(
         address: "Atlantis, the Lost City",
         homePhotosPaths: [""],

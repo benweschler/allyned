@@ -20,9 +20,24 @@ class MapWindowState extends State<MapWindow> {
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
 
+  late BitmapDescriptor houseMarkerIcon = BitmapDescriptor.defaultMarker;
+
+  void addCustomIcon() {
+    BitmapDescriptor.fromAssetImage(
+            const ImageConfiguration(), "assets/images/house_pin.png")
+        .then(
+      (icon) {
+        setState(() {
+          houseMarkerIcon = icon;
+        });
+      },
+    );
+  }
+
   @override
   void initState() {
     _selectedProviderID.addListener(_centerOnProvider);
+    addCustomIcon();
     super.initState();
   }
 
@@ -61,14 +76,17 @@ class MapWindowState extends State<MapWindow> {
               ..addAll(uclaHomes.map((e) => Marker(
                     markerId: MarkerId(UniqueKey().hashCode.toString()),
                     position: e.homeInfo.coordinates,
+                    icon: houseMarkerIcon,
                   )))
               ..addAll(kaiserHomes.map((e) => Marker(
                     markerId: MarkerId(UniqueKey().hashCode.toString()),
                     position: e.homeInfo.coordinates,
+                    icon: houseMarkerIcon,
                   )))
               ..addAll(qwerHomes.map((e) => Marker(
                     markerId: MarkerId(UniqueKey().hashCode.toString()),
                     position: e.homeInfo.coordinates,
+                    icon: houseMarkerIcon,
                   ))),
           ),
           BottomSheetWithButtons(centerOnProvider: _centerOnProvider),

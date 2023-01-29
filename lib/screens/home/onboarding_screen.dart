@@ -10,18 +10,22 @@ class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          const Text("Onboarding"),
-          const SizedBox(height: Insets.med),
-          ElevatedButton(
-            onPressed: () {
-              context.read<AppService>().onboarding = true;
-              context.go("/home");
-            },
-            child: const Text("Go to App"),
-          ),
-        ],
+      body: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text("Onboarding"),
+            const SizedBox(height: Insets.med),
+            ElevatedButton(
+              onPressed: () {
+                context.read<AppService>().onboarding = true;
+                context.go("/home");
+              },
+              child: const Text("Go to App"),
+            ),
+          ],
+        ),
       ),
     );
   }

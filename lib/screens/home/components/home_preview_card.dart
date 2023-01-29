@@ -112,8 +112,8 @@ class SupportTagRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        SupportTag(title: "Meals", isOffered: true),
-        SupportTag(title: "Transport", isOffered: true),
+        SupportTag(title: "Meals", isOffered: offersMeals),
+        SupportTag(title: "Transport", isOffered: offersTransportation),
       ],
     );
   }
