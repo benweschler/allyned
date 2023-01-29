@@ -1,16 +1,29 @@
+import 'package:allyned/app_service.dart';
 import 'package:allyned/models/app_model.dart';
 import 'package:allyned/models/user_model.dart';
-import 'package:allyned/router.dart' show appRouter;
+import 'package:allyned/router.dart';
 import 'package:allyned/utils/wrappers/care_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'firebase_options.dart';
 
 import 'constants.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  ///////////////////////////////
+  // Initialize AppService
+  ///////////////////////////////
+  final appService = AppService(await SharedPreferences.getInstance());
+
   runApp(MultiProvider(
     providers: [
+      ChangeNotifierProvider.value(value: appService),
       ChangeNotifierProvider<AppModel>(create: (_) => AppModel()),
       ChangeNotifierProvider(
         create: (_) => UserModel(
@@ -43,7 +56,7 @@ class MyApp extends StatelessWidget {
         title: 'Allyned',
         debugShowCheckedModeBanner: false,
         theme: context.read<AppModel>().theme.toThemeData(),
-        routerConfig: appRouter,
+        routerConfig: AppRouter(context.read<AppService>()).appRouter,
       ),
     );
   }

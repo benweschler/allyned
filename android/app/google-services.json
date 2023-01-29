@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "480511478888",
+    "project_id": "allynd-app",
+    "storage_bucket": "allynd-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:480511478888:android:3ce82577a6f2e396b03fdd",
+        "android_client_info": {
+          "package_name": "tech.allyned.allyned"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "480511478888-u5q8ie0vnpebcuqbuh5h6gakg57r1tra.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBB4YN03l0PQzKd0IEpxeataLaudVRmB2Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "480511478888-u5q8ie0vnpebcuqbuh5h6gakg57r1tra.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "480511478888-i2blccfotc0qbas5lrulds6p44vacm83.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "tech.allyned.allyned"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
