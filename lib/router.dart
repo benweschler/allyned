@@ -90,8 +90,6 @@ class AppRouter {
         final isGoingToInit = state.subloc == "/splash";
         final isGoingToOnboard = state.subloc == "/onboard";
 
-        print(isInitialized);
-
         // If not Initialized and not going to Initialized redirect to Splash
         if (!isInitialized && !isGoingToInit) {
           return "/splash";

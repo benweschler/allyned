@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:allyned/app_service.dart';
 import 'package:allyned/models/app_model.dart';
 import 'package:allyned/models/user_model.dart';
@@ -8,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'auth_service.dart';
 import 'firebase_options.dart';
 
 import 'constants.dart';
@@ -21,11 +24,17 @@ void main() async {
   ///////////////////////////////
   final appService = AppService(await SharedPreferences.getInstance());
 
+  ///////////////////////////////
+  // Initialize AuthService
+  ///////////////////////////////
+  final authService = AuthService();
+
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider.value(value: appService),
+      ChangeNotifierProvider<AppService>.value(value: appService),
+      Provider<AuthService>.value(value: authService),
       ChangeNotifierProvider<AppModel>(create: (_) => AppModel()),
-      ChangeNotifierProvider(
+      ChangeNotifierProvider<UserModel>(
         create: (_) => UserModel(
           careProviders: Map<String, CareProvider>.fromIterable(
             dummyCareProviders,
@@ -43,8 +52,32 @@ void main() async {
   ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late final StreamSubscription<bool> authSubscription;
+  late final authService = context.read<AuthService>();
+
+  @override
+  void initState() {
+    authSubscription = authService.onAuthStateChange.listen(onAuthStateChange);
+    super.initState();
+  }
+
+  void onAuthStateChange(bool login) {
+    context.read<AppService>().loginState = login;
+  }
+
+  @override
+  void dispose() {
+    authSubscription.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

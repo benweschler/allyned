@@ -35,12 +35,24 @@ final Map<String, List<HomeownerInfo>> dummyAvailableHomeMap = {
 };
 
 final List<HomeownerInfo> _uclaHomes = [
-  HomeownerInfo(
+  getBen(),
+];
+
+final List<HomeownerInfo> _kaiserHomes = [
+  getIrene(),
+];
+
+final List<HomeownerInfo> _qwerHomes = [
+  getRebecca(),
+];
+
+HomeownerInfo getBen() {
+  return HomeownerInfo(
     name: "Ben",
     pronouns: "He/Him",
     substanceUse: [SubstanceUse.alcohol, SubstanceUse.marijuana],
     bio: "Hey there!!",
-    profilePicPath: "",
+    profilePicPath: "assets/images/ben_pic.jpeg",
     cardBackground: 2,
     homeInfo: HomeInfo(
       coordinates: const LatLng(37.42096133580664, -122.095749655962),
@@ -51,11 +63,11 @@ final List<HomeownerInfo> _uclaHomes = [
         homePhotosPaths: [""],
       ),
     ),
-  ),
-];
+  );
+}
 
-final List<HomeownerInfo> _kaiserHomes = [
-  HomeownerInfo(
+HomeownerInfo getIrene() {
+  return HomeownerInfo(
     name: "Irene",
     pronouns: "She/They",
     substanceUse: [
@@ -64,7 +76,7 @@ final List<HomeownerInfo> _kaiserHomes = [
       SubstanceUse.other,
     ],
     bio: "I luv art :)",
-    profilePicPath: "",
+    profilePicPath: "assets/images/irene_pic.jpg",
     cardBackground: 4,
     homeInfo: HomeInfo(
       coordinates: const LatLng(27.42396133580664, -112.097749655962),
@@ -75,16 +87,16 @@ final List<HomeownerInfo> _kaiserHomes = [
         homePhotosPaths: [""],
       ),
     ),
-  ),
-];
+  );
+}
 
-final List<HomeownerInfo> _qwerHomes = [
-  HomeownerInfo(
+HomeownerInfo getRebecca() {
+  return HomeownerInfo(
     name: "Rebecca",
     pronouns: "She/Her",
     substanceUse: [],
     bio: "I make gud react heeh",
-    profilePicPath: "",
+    profilePicPath: "assets/images/rebecca_pic.jpg",
     cardBackground: 0,
     homeInfo: HomeInfo(
       coordinates: const LatLng(57.37796133580664, -152.125749655962),
@@ -95,5 +107,5 @@ final List<HomeownerInfo> _qwerHomes = [
         homePhotosPaths: [""],
       ),
     ),
-  ),
-];
+  );
+}
