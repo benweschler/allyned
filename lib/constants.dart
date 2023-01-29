@@ -41,6 +41,7 @@ final List<HomeownerInfo> _uclaHomes = [
     substanceUse: [SubstanceUse.alcohol, SubstanceUse.marijuana],
     bio: "Hey there!!",
     profilePicPath: "",
+    cardBackground: 2,
     homeInfo: HomeInfo(
       coordinates: const LatLng(37.42096133580664, -122.095749655962),
       offersTransportation: true,
@@ -64,6 +65,7 @@ final List<HomeownerInfo> _kaiserHomes = [
     ],
     bio: "I luv art :)",
     profilePicPath: "",
+    cardBackground: 4,
     homeInfo: HomeInfo(
       coordinates: const LatLng(27.42396133580664, -112.097749655962),
       offersTransportation: true,
@@ -83,6 +85,7 @@ final List<HomeownerInfo> _qwerHomes = [
     substanceUse: [],
     bio: "I make gud react heeh",
     profilePicPath: "",
+    cardBackground: 0,
     homeInfo: HomeInfo(
       coordinates: const LatLng(57.37796133580664, -152.125749655962),
       offersTransportation: false,

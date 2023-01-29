@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:allyned/constants.dart';
 import 'package:allyned/models/user_model.dart';
 import 'package:allyned/screens/home/components/bottom_sheet_with_buttons.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,18 @@ class MapWindowState extends State<MapWindow> {
       ValueNotifier(context.read<UserModel>().careProviders.first.id);
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
+
+  @override
+  void initState() {
+    _selectedProviderID.addListener(_centerOnProvider);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _selectedProviderID.removeListener(_centerOnProvider);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +52,12 @@ class MapWindowState extends State<MapWindow> {
             onMapCreated: (GoogleMapController controller) {
               _controller.complete(controller);
             },
+            markers: Set<Marker>.from(dummyCareProviders.map(
+              (careProvider) => Marker(
+                markerId: MarkerId(careProvider.id),
+                position: careProvider.coordinates,
+              ),
+            )),
           ),
           BottomSheetWithButtons(centerOnProvider: _centerOnProvider),
         ],

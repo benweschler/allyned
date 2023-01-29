@@ -24,6 +24,7 @@ class HomeownerInfo {
   final String bio;
   final String profilePicPath;
   final HomeInfo homeInfo;
+  final int cardBackground;
 
   HomeownerInfo({
     required this.name,
@@ -32,5 +33,6 @@ class HomeownerInfo {
     required this.bio,
     required this.profilePicPath,
     required this.homeInfo,
-  });
+    required this.cardBackground,
+  }) : assert(0 <= cardBackground && cardBackground < 6);
 }
