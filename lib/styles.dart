@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 /// Includes paddings, text styles, timings etc. Colors (other than gradients)
 /// are not included, and are defined in themes.dart instead.
 
-class Insets {
+abstract class Insets {
   static const double xs = 5;
   static const double sm = 10;
   static const double med = 15;
@@ -15,7 +15,7 @@ class Insets {
   static const double offset = 15;
 }
 
-class Corners {
+abstract class Corners {
   static const double sm = 5;
   static const Radius smRadius = Radius.circular(sm);
   static const BorderRadius smBorderRadius = BorderRadius.all(smRadius);
@@ -30,11 +30,13 @@ class Corners {
 }
 
 /// The duration used for all animations.
-class Durations {}
-
+abstract class Durations {
+  static const Duration short = Duration(milliseconds: 150);
+  static const Duration med = Duration(milliseconds: 300);
+}
 /// Font Sizes - These are usually not used directly, but are instead referenced
 /// to create predefined styles in [TextStyles].
-class FontSizes {
+abstract class FontSizes {
   static const double s12 = 12;
   static const double s14 = 14;
   static const double s16 = 16;
@@ -45,13 +47,13 @@ class FontSizes {
 
 /// Fonts - A list of Font Families, used by the TextStyles class to create
 /// concrete styles.
-class Fonts {}
+abstract class Fonts {}
 
 /// TextStyles - All core text styles for the app are be declared here.
 /// Every variant in the app is not declared here; just the high level ones.
 /// More specific variants are created on the fly using `style.copyWith()`
 /// Ex: newStyle = TextStyles.body1.copyWith(lineHeight: 2, color: Colors.red)
-class TextStyles {
+abstract class TextStyles {
   static const TextStyle h1 = TextStyle(fontSize: FontSizes.s24, fontWeight: FontWeight.bold);
   static const TextStyle h2 = TextStyle(fontSize: FontSizes.s20, fontWeight: FontWeight.w500);
   static const TextStyle title1 = TextStyle(fontSize: FontSizes.s18, fontWeight: FontWeight.bold);

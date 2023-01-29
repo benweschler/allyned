@@ -5,6 +5,7 @@ enum ThemeType {
 }
 
 class AppTheme {
+  final Color accentColor = const Color.fromRGBO(110, 78, 219, 1);
 
   AppTheme();
 
@@ -16,6 +17,8 @@ class AppTheme {
   }
 
   ThemeData toThemeData() {
-    return ThemeData();
+    return ThemeData(
+      colorScheme: ThemeData().colorScheme.copyWith(secondary: accentColor),
+    );
   }
 }

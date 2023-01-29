@@ -1,6 +1,7 @@
 import 'package:allyned/models/app_model.dart';
 import 'package:allyned/router.dart' show appRouter;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -17,11 +18,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Allyned',
-      debugShowCheckedModeBanner: false,
-      theme: context.read<AppModel>().theme.toThemeData(),
-      routerConfig: appRouter,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: Theme.of(context).brightness == Brightness.dark
+          ? SystemUiOverlayStyle.light
+          : SystemUiOverlayStyle.dark,
+      child: MaterialApp.router(
+        title: 'Allyned',
+        debugShowCheckedModeBanner: false,
+        theme: context.read<AppModel>().theme.toThemeData(),
+        routerConfig: appRouter,
+      ),
     );
   }
 }
