@@ -1,8 +1,11 @@
 import 'dart:math';
 
+import 'package:allyned/constants.dart';
 import 'package:allyned/models/user_model.dart';
 import 'package:allyned/platform/popups.dart';
+import 'package:allyned/screens/home/components/home_preview_card.dart';
 import 'package:allyned/styles.dart';
+import 'package:allyned/utils/wrappers/user_info.dart';
 import 'package:allyned/widgets/buttons/responsive_button.dart';
 import 'package:allyned/widgets/modal_sheets/selection_sheet.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +26,8 @@ class BottomSheetChildren extends StatelessWidget {
       children: const [
         SizedBox(height: Insets.med),
         ChangeProviderButton(),
+        SizedBox(height: Insets.lg),
+        HomeList(),
       ],
     );
   }
@@ -121,5 +126,29 @@ class ChooseProviderPopup extends StatelessWidget {
       initiallySelectedItemNdx: initiallySelectedItemNdx,
       onNewItemTap: onNewItemTap,
     );
+  }
+}
+
+class HomeList extends StatelessWidget {
+  const HomeList({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<ValueNotifier<String>>(
+      builder: (_, notifier, __) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: getHomes(notifier.value)
+              .map((info) => HomePreviewCard(info))
+              .toList(),
+        );
+      },
+    );
+  }
+
+  List<HomeownerInfo> getHomes(String selectedProviderID) {
+    final homes = dummyAvailableHomeMap[selectedProviderID];
+    assert(homes != null);
+    return homes!;
   }
 }

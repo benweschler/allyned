@@ -28,7 +28,7 @@ const List<CareProvider> dummyCareProviders = [
   ),
 ];
 
-final Map<String, List<HomeownerInfo>> availableHomeMap = {
+final Map<String, List<HomeownerInfo>> dummyAvailableHomeMap = {
   dummyCareProviders[0].id: _uclaHomes,
   dummyCareProviders[1].id: _kaiserHomes,
   dummyCareProviders[2].id: _qwerHomes,
