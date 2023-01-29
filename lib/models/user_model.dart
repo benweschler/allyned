@@ -1,5 +1,5 @@
 import 'package:allyned/utils/types/easy_notifier.dart';
-import 'package:allyned/utils/wrappers/CareProvider.dart';
+import 'package:allyned/utils/wrappers/care_provider.dart';
 import 'package:allyned/utils/wrappers/substance_use.dart';
 
 class UserModel extends EasyNotifier {
@@ -7,7 +7,7 @@ class UserModel extends EasyNotifier {
     required Map<String, CareProvider> careProviders,
     required String name,
     required String pronouns,
-    required SubstanceUse substanceUse,
+    required List<SubstanceUse> substanceUse,
     required String bio,
     required String profilePicPath,
   })  : _name = name,
@@ -49,11 +49,12 @@ class UserModel extends EasyNotifier {
   set pronouns(String value) => notify(() => _pronouns = value);
 
   // Substance use
-  SubstanceUse _substanceUse;
+  List<SubstanceUse> _substanceUse;
 
-  SubstanceUse get substanceUse => _substanceUse;
+  List<SubstanceUse> get substanceUse => _substanceUse;
 
-  set substanceUse(SubstanceUse value) => notify(() => _substanceUse = value);
+  set substanceUse(List<SubstanceUse> value) =>
+      notify(() => _substanceUse = value);
 
   // Bio
   String _bio;
