@@ -67,6 +67,7 @@ class _BottomSheetWithButtonsState extends State<BottomSheetWithButtons> {
             child: DraggableScrollableSheet(
               initialChildSize: _initialSheetChildSize,
               maxChildSize: 0.9,
+              minChildSize: 0.2,
               builder:
                   (BuildContext context, ScrollController scrollController) {
                 return ModalSheet(

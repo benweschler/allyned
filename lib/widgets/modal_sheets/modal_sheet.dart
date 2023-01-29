@@ -18,7 +18,7 @@ class ModalSheet extends StatelessWidget {
             blurRadius: 12,
             spreadRadius: 2,
           )
-        ]
+        ],
       ),
       padding: const EdgeInsets.all(Insets.offset),
       child: Column(

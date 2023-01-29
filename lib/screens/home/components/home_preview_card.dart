@@ -13,79 +13,84 @@ class HomePreviewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
-      child: DefaultTextStyle(
-        style: TextStyle(color: _textColor),
-        child: AspectRatio(
-          aspectRatio: 1050 / 360,
-          child: LayoutBuilder(builder: (context, constraints) {
-            return Container(
-              decoration: BoxDecoration(
-                borderRadius: Corners.medBorderRadius,
-                image: DecorationImage(
-                  image: AssetImage(
-                    "assets/homeowner_card_backgrounds/${homeownerInfo.cardBackground}.jpg",
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: Insets.lg),
+      child: GestureDetector(
+        onTap: () {},
+        child: DefaultTextStyle(
+          style: TextStyle(color: _textColor),
+          child: AspectRatio(
+            aspectRatio: 1050 / 360,
+            child: LayoutBuilder(builder: (context, constraints) {
+              return Container(
+                decoration: BoxDecoration(
+                  borderRadius: Corners.medBorderRadius,
+                  image: DecorationImage(
+                    image: AssetImage(
+                      "assets/homeowner_card_backgrounds/${homeownerInfo.cardBackground}.jpg",
+                    ),
                   ),
                 ),
-              ),
-              padding: EdgeInsets.symmetric(
-                horizontal: constraints.maxWidth * 0.034,
-                vertical: Insets.med,
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.black, width: 2),
-                      color: Colors.grey,
+                padding: EdgeInsets.symmetric(
+                  horizontal: constraints.maxWidth * 0.034,
+                  vertical: Insets.med,
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.black, width: 2),
+                        image: DecorationImage(
+                          image: AssetImage(homeownerInfo.profilePicPath)
+                        ),
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: Insets.lg),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text.rich(TextSpan(
-                            text: "${homeownerInfo.name} ",
-                            style: TextStyles.h1.copyWith(
-                              fontFamily: "Unbounded",
-                              fontWeight: FontWeight.w500,
-                            ),
-                            children: [
-                              TextSpan(
-                                text: "(${homeownerInfo.pronouns})",
-                                style: TextStyles.body2.copyWith(
-                                  fontWeight: FontWeight.w400,
-                                ),
+                    const SizedBox(width: Insets.lg),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text.rich(TextSpan(
+                              text: "${homeownerInfo.name} ",
+                              style: TextStyles.h1.copyWith(
+                                fontFamily: "Unbounded",
+                                fontWeight: FontWeight.w500,
                               ),
-                            ])),
-                        Text(
-                          "~ 7mi from provider",
-                          style: TextStyles.body2.copyWith(
-                            fontWeight: FontWeight.w500,
-                            color: DefaultTextStyle.of(context)
-                                .style
-                                .color!
-                                .withOpacity(0.65),
+                              children: [
+                                TextSpan(
+                                  text: "(${homeownerInfo.pronouns})",
+                                  style: TextStyles.body2.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ])),
+                          Text(
+                            "~ 7mi from provider",
+                            style: TextStyles.body2.copyWith(
+                              fontWeight: FontWeight.w500,
+                              color: DefaultTextStyle.of(context)
+                                  .style
+                                  .color!
+                                  .withOpacity(0.65),
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: Insets.med),
-                        SupportTagRow(
-                          offersMeals: homeownerInfo.homeInfo.offersMeals,
-                          offersTransportation:
-                              homeownerInfo.homeInfo.offersTransportation,
-                        ),
-                      ],
+                          const SizedBox(height: Insets.med),
+                          SupportTagRow(
+                            offersMeals: homeownerInfo.homeInfo.offersMeals,
+                            offersTransportation:
+                                homeownerInfo.homeInfo.offersTransportation,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          }),
+                  ],
+                ),
+              );
+            }),
+          ),
         ),
       ),
     );

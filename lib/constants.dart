@@ -1,4 +1,6 @@
 //TODO: TAKE THIS OUT AND REMOVE FROM ANDROID/APP/SRC/MAIN/ANDROIDMANIFEST.XML AT meta-data tag
+import 'dart:math';
+
 import 'package:allyned/utils/wrappers/care_provider.dart';
 import 'package:allyned/utils/wrappers/home_info.dart';
 import 'package:allyned/utils/wrappers/substance_use.dart';
@@ -6,6 +8,8 @@ import 'package:allyned/utils/wrappers/user_info.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' show LatLng;
 
 const String mapsAPIKey = "AIzaSyDn_C-LwLuZDZksBDr4SlUAg_D7SSNvxCU";
+
+const double coordRandomization = 0.02898550724;
 
 const List<CareProvider> dummyCareProviders = [
   CareProvider(
@@ -29,33 +33,57 @@ const List<CareProvider> dummyCareProviders = [
 ];
 
 final Map<String, List<HomeownerInfo>> dummyAvailableHomeMap = {
-  dummyCareProviders[0].id: _uclaHomes,
-  dummyCareProviders[1].id: _kaiserHomes,
-  dummyCareProviders[2].id: _qwerHomes,
+  dummyCareProviders[0].id: uclaHomes,
+  dummyCareProviders[1].id: kaiserHomes,
+  dummyCareProviders[2].id: qwerHomes,
 };
 
-final List<HomeownerInfo> _uclaHomes = [
-  getBen(),
+final List<HomeownerInfo> uclaHomes = [
+  getBen(dummyCareProviders[0].coordinates),
+  getRebecca(dummyCareProviders[0].coordinates),
+  getIrene(dummyCareProviders[0].coordinates),
+  getBen(dummyCareProviders[0].coordinates),
+  getBen(dummyCareProviders[0].coordinates),
 ];
 
-final List<HomeownerInfo> _kaiserHomes = [
-  getIrene(),
+final List<HomeownerInfo> kaiserHomes = [
+  getIrene(dummyCareProviders[1].coordinates),
+  getBen(dummyCareProviders[1].coordinates),
+  getIrene(dummyCareProviders[1].coordinates),
+  getRebecca(dummyCareProviders[1].coordinates),
+  getRebecca(dummyCareProviders[1].coordinates),
 ];
 
-final List<HomeownerInfo> _qwerHomes = [
-  getRebecca(),
+final List<HomeownerInfo> qwerHomes = [
+  getBen(dummyCareProviders[2].coordinates),
+  getRebecca(dummyCareProviders[2].coordinates),
+  getBen(dummyCareProviders[2].coordinates),
+  getIrene(dummyCareProviders[2].coordinates),
+  getRebecca(dummyCareProviders[2].coordinates),
+  getIrene(dummyCareProviders[2].coordinates),
 ];
 
-HomeownerInfo getBen() {
+HomeownerInfo getBen(LatLng providerLocation) {
+  double newLat = providerLocation.latitude;
+  double newLong = providerLocation.longitude;
+
+  var rand = Random().nextDouble() * 2 - 0.5;
+  var sign = Random().nextDouble() > 0.5 ? 1 : -1;
+  newLat += sign * rand * coordRandomization;
+
+  rand = Random().nextDouble() * 2 - 0.5;
+  sign = Random().nextDouble() > 0.5 ? 1 : -1;
+  newLong += sign * rand * coordRandomization;
+
   return HomeownerInfo(
     name: "Ben",
     pronouns: "He/Him",
     substanceUse: [SubstanceUse.alcohol, SubstanceUse.marijuana],
     bio: "Hey there!!",
     profilePicPath: "assets/images/ben_pic.jpeg",
-    cardBackground: 2,
+    cardBackground: Random().nextInt(6),
     homeInfo: HomeInfo(
-      coordinates: const LatLng(37.42096133580664, -122.095749655962),
+      coordinates: LatLng(newLat, newLong),
       offersTransportation: true,
       offersMeals: true,
       hiddenHomeInfo: HiddenHomeInfo(
@@ -66,7 +94,15 @@ HomeownerInfo getBen() {
   );
 }
 
-HomeownerInfo getIrene() {
+HomeownerInfo getIrene(LatLng providerLocation) {
+  double newLat = providerLocation.latitude;
+  double newLong = providerLocation.longitude;
+
+  final rand = Random().nextDouble() * 2 - 0.5;
+  final sign = Random().nextDouble() > 0.5 ? 1 : -1;
+  newLat += sign * rand * coordRandomization;
+  newLong += sign * rand * coordRandomization;
+
   return HomeownerInfo(
     name: "Irene",
     pronouns: "She/They",
@@ -77,9 +113,9 @@ HomeownerInfo getIrene() {
     ],
     bio: "I luv art :)",
     profilePicPath: "assets/images/irene_pic.jpg",
-    cardBackground: 4,
+    cardBackground: Random().nextInt(6),
     homeInfo: HomeInfo(
-      coordinates: const LatLng(27.42396133580664, -112.097749655962),
+      coordinates: LatLng(newLat, newLong),
       offersTransportation: true,
       offersMeals: false,
       hiddenHomeInfo: HiddenHomeInfo(
@@ -90,16 +126,24 @@ HomeownerInfo getIrene() {
   );
 }
 
-HomeownerInfo getRebecca() {
+HomeownerInfo getRebecca(LatLng providerLocation) {
+  double newLat = providerLocation.latitude;
+  double newLong = providerLocation.longitude;
+
+  final rand = Random().nextDouble() * 2 - 0.5;
+  final sign = Random().nextDouble() > 0.5 ? 1 : -1;
+  newLat += sign * rand * coordRandomization;
+  newLong += sign * rand * coordRandomization;
+
   return HomeownerInfo(
     name: "Rebecca",
     pronouns: "She/Her",
     substanceUse: [],
     bio: "I make gud react heeh",
     profilePicPath: "assets/images/rebecca_pic.jpg",
-    cardBackground: 0,
+    cardBackground: Random().nextInt(6),
     homeInfo: HomeInfo(
-      coordinates: const LatLng(57.37796133580664, -152.125749655962),
+      coordinates: LatLng(newLat, newLong),
       offersTransportation: false,
       offersMeals: false,
       hiddenHomeInfo: HiddenHomeInfo(

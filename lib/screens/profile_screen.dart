@@ -1,3 +1,4 @@
+import 'package:allyned/app_service.dart';
 import 'package:allyned/auth_service.dart';
 import 'package:allyned/styles.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +12,24 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         minimum: const EdgeInsets.symmetric(horizontal: Insets.offset),
-        child: ElevatedButton(
-          onPressed: () => context.read<AuthService>().logOut(),
-          child: const Text("Logout"),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () => context.read<AuthService>().logOut(),
+                child: const Text("Logout"),
+              ),
+              const SizedBox(height: Insets.lg),
+              ElevatedButton(
+                onPressed: () {
+                  context.read<AuthService>().logOut();
+                  context.read<AppService>().onboarding = false;
+                },
+                child: const Text("Logout and Delete Onboarding"),
+              ),
+            ],
+          ),
         ),
       ),
     );

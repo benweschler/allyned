@@ -139,7 +139,7 @@ class HomeList extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: getHomes(notifier.value)
-              .map((info) => HomePreviewCard(info))
+              .map<Widget>((info) => HomePreviewCard(info))
               .toList(),
         );
       },

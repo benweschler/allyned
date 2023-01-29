@@ -57,7 +57,19 @@ class MapWindowState extends State<MapWindow> {
                 markerId: MarkerId(careProvider.id),
                 position: careProvider.coordinates,
               ),
-            )),
+            ))
+              ..addAll(uclaHomes.map((e) => Marker(
+                    markerId: MarkerId(UniqueKey().hashCode.toString()),
+                    position: e.homeInfo.coordinates,
+                  )))
+              ..addAll(kaiserHomes.map((e) => Marker(
+                    markerId: MarkerId(UniqueKey().hashCode.toString()),
+                    position: e.homeInfo.coordinates,
+                  )))
+              ..addAll(qwerHomes.map((e) => Marker(
+                    markerId: MarkerId(UniqueKey().hashCode.toString()),
+                    position: e.homeInfo.coordinates,
+                  ))),
           ),
           BottomSheetWithButtons(centerOnProvider: _centerOnProvider),
         ],
