@@ -14,8 +14,8 @@ class ProfileScreen extends StatelessWidget {
         minimum: const EdgeInsets.symmetric(horizontal: Insets.offset),
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              //ProfilePhoto(user.profilePicPath),
               ElevatedButton(
                 onPressed: () => context.read<AuthService>().logOut(),
                 child: const Text("Logout"),
@@ -32,6 +32,28 @@ class ProfileScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class ProfilePhoto extends StatelessWidget {
+  final String profilePicPath;
+
+  const ProfilePhoto(this.profilePicPath, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Container(
+          width: constraints.maxWidth * 0.5,
+          height: constraints.maxWidth * 0.5,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(image: AssetImage(profilePicPath)),
+          ),
+        );
+      },
     );
   }
 }

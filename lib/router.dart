@@ -1,6 +1,6 @@
 import 'package:allyned/main_app_scaffold.dart';
 import 'package:allyned/screens/home/home_screen.dart';
-import 'package:allyned/screens/home/onboarding_screen.dart';
+import 'package:allyned/screens/onboarding/onboarding_screen.dart';
 import 'package:allyned/screens/login_screen.dart';
 import 'package:allyned/screens/messages_screen.dart';
 import 'package:allyned/screens/profile_screen.dart';
