@@ -21,7 +21,7 @@ class OnboardingScreen extends StatelessWidget {
           ),
           ContentCard(
             cardIndex: 1,
-            altColor: Color(0xFF904E93),
+            altColor: Color(0xFFFFB138),
             title: "Clear your mind \nwith breathing exercises",
             backgroundImagePath: 'assets/images/onboarding/onboard-1.png',
             subtitle:
@@ -29,7 +29,7 @@ class OnboardingScreen extends StatelessWidget {
           ),
           ContentCard(
             cardIndex: 2,
-            altColor: Color(0xFFFFB138),
+            altColor: Color(0xFF904E93),
             backgroundImagePath: 'assets/images/onboarding/onboard-2.png',
             title: "Fall asleep \nwith bedtime stories",
             subtitle:
