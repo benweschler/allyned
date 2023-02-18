@@ -48,12 +48,14 @@ void main() async {
         ),
       )
     ],
-    child: const MyApp(),
+    child: MyApp(AppRouter(appService).appRouter),
   ));
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+  final RouterConfig<Object>? appRouter;
+
+  const MyApp(this.appRouter, {super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -89,7 +91,7 @@ class _MyAppState extends State<MyApp> {
         title: 'Allyned',
         debugShowCheckedModeBanner: false,
         theme: context.read<AppModel>().theme.toThemeData(),
-        routerConfig: AppRouter(context.read<AppService>()).appRouter,
+        routerConfig: widget.appRouter,
       ),
     );
   }

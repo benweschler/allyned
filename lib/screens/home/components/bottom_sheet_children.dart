@@ -5,6 +5,7 @@ import 'package:allyned/models/user_model.dart';
 import 'package:allyned/platform/popups.dart';
 import 'package:allyned/screens/home/components/home_preview_card.dart';
 import 'package:allyned/styles.dart';
+import 'package:allyned/utils/wrappers/care_provider.dart';
 import 'package:allyned/utils/wrappers/user_info.dart';
 import 'package:allyned/widgets/buttons/responsive_button.dart';
 import 'package:allyned/widgets/modal_sheets/selection_sheet.dart';
@@ -38,9 +39,9 @@ class ChangeProviderButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ValueNotifier<String>>(
+    return Consumer<ValueNotifier<CareProvider>>(
       builder: (_, notifier, __) {
-        String selectedProviderID = notifier.value;
+        String selectedProviderID = notifier.value.id;
         final careProviders = context.read<UserModel>().careProviders;
         return ResponsiveButton.light(
           onTap: () => showOptionPopup(
@@ -51,9 +52,8 @@ class ChangeProviderButton extends StatelessWidget {
                   .toList()
                   .indexOf(selectedProviderID),
               providerNames: careProviders.map<String>((e) => e.name).toList(),
-              onNewItemTap: (ndx) => context
-                  .read<ValueNotifier<String>>()
-                  .value = careProviders.toList().elementAt(ndx).id,
+              onNewItemTap: (ndx) =>
+                  notifier.value = careProviders.toList().elementAt(ndx),
             ),
           ),
           overlayOpacity: 0.25,
@@ -134,11 +134,11 @@ class HomeList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ValueNotifier<String>>(
+    return Consumer<ValueNotifier<CareProvider>>(
       builder: (_, notifier, __) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: getHomes(notifier.value)
+          children: getHomes(notifier.value.id)
               .map<Widget>((info) => HomePreviewCard(info))
               .toList(),
         );

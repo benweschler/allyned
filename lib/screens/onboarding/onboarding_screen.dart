@@ -13,30 +13,24 @@ class OnboardingScreen extends StatelessWidget {
         children: [
           ContentCard(
             cardIndex: 0,
-            color: 'Red',
             altColor: Color(0xFF4259B2),
-            centerIllustrationPath: 'images/Illustration-Red.png',
-            backgroundImagePath: 'images/Bg-Red.png',
+            backgroundImagePath: 'assets/images/onboarding/onboard-0.png',
             title: "Wake up gently \nwith sounds of nature",
             subtitle:
                 'Relax your mind and create inner peace with soothing sounds of nature.',
           ),
           ContentCard(
             cardIndex: 1,
-            color: 'Yellow',
             altColor: Color(0xFF904E93),
             title: "Clear your mind \nwith breathing exercises",
-            centerIllustrationPath: 'images/Illustration-Yellow.png',
-            backgroundImagePath: 'images/Bg-Yellow.png',
+            backgroundImagePath: 'assets/images/onboarding/onboard-1.png',
             subtitle:
                 'Melt your stresses and anxieties away with 50+ breathing exercises.',
           ),
           ContentCard(
             cardIndex: 2,
-            color: 'Blue',
             altColor: Color(0xFFFFB138),
-            centerIllustrationPath: 'images/Illustration-Blue.png',
-            backgroundImagePath: 'images/Bg-Blue.png',
+            backgroundImagePath: 'assets/images/onboarding/onboard-2.png',
             title: "Fall asleep \nwith bedtime stories",
             subtitle:
                 'Enjoy a restful night’s sleep with relaxing activities and calm bedtime stories.',

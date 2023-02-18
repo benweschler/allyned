@@ -8,21 +8,21 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class ContentCard extends StatefulWidget {
-  final String? color;
   final Color? altColor;
   final String title;
   final String? subtitle;
   final int cardIndex;
   final String? centerIllustrationPath;
   final String backgroundImagePath;
+  final bool shouldAnimateBackground;
 
   const ContentCard({
     super.key,
-    this.color,
     this.title = "",
     this.subtitle,
     this.altColor,
     this.centerIllustrationPath,
+    this.shouldAnimateBackground = false,
     required this.backgroundImagePath,
     required this.cardIndex,
   });
@@ -36,10 +36,7 @@ class _ContentCardState extends State<ContentCard> {
 
   @override
   void initState() {
-    _ticker = Ticker((d) {
-      setState(() {});
-    })
-      ..start();
+    _ticker = Ticker((d) => setState(() {}))..start();
     super.initState();
   }
 
@@ -61,27 +58,29 @@ class _ContentCardState extends State<ContentCard> {
       alignment: Alignment.center,
       fit: StackFit.expand,
       children: <Widget>[
-        Transform(
-          transform: Matrix4.diagonal3Values(scaleX, scaleY, 1),
-          child: Transform.translate(
-            offset: Offset(
-              -(scaleX - 1) / 2 * size.width,
-              -(scaleY - 1) / 2 * size.height + offsetY,
-            ),
-            child: Image.asset(
-              widget.backgroundImagePath,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
+        widget.shouldAnimateBackground
+            ? Transform(
+                transform: Matrix4.diagonal3Values(scaleX, scaleY, 1),
+                child: Transform.translate(
+                  offset: Offset(
+                    -(scaleX - 1) / 2 * size.width,
+                    -(scaleY - 1) / 2 * size.height + offsetY,
+                  ),
+                  child: Image.asset(
+                    widget.backgroundImagePath,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              )
+            : Image.asset(widget.backgroundImagePath, fit: BoxFit.cover),
         Container(
           alignment: Alignment.center,
           child: Padding(
             padding: const EdgeInsets.only(top: 75.0, bottom: 25.0),
             child: Column(
-              children: <Widget>[
+              children: [
                 //Top Image
-                if(widget.centerIllustrationPath != null)
+                if (widget.centerIllustrationPath != null)
                   Expanded(
                     flex: 3,
                     child: Padding(
@@ -91,7 +90,9 @@ class _ContentCardState extends State<ContentCard> {
                         fit: BoxFit.contain,
                       ),
                     ),
-                  ),
+                  )
+                else
+                  const Spacer(flex: 3),
 
                 SliderCircles(activePage: widget.cardIndex),
 

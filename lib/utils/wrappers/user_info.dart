@@ -17,21 +17,16 @@ class UserInfo {
   });
 }
 
-class HomeownerInfo {
-  final String name;
-  final String pronouns;
-  final List<SubstanceUse> substanceUse;
-  final String bio;
-  final String profilePicPath;
+class HomeownerInfo extends UserInfo {
   final HomeInfo homeInfo;
   final int cardBackground;
 
   HomeownerInfo({
-    required this.name,
-    required this.pronouns,
-    required this.substanceUse,
-    required this.bio,
-    required this.profilePicPath,
+    required super.name,
+    required super.pronouns,
+    required super.substanceUse,
+    required super.bio,
+    required super.profilePicPath,
     required this.homeInfo,
     required this.cardBackground,
   }) : assert(0 <= cardBackground && cardBackground < 6);

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:allyned/constants.dart';
 import 'package:allyned/models/user_model.dart';
 import 'package:allyned/screens/home/components/bottom_sheet_with_buttons.dart';
+import 'package:allyned/utils/wrappers/care_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
@@ -15,8 +16,8 @@ class MapWindow extends StatefulWidget {
 }
 
 class MapWindowState extends State<MapWindow> {
-  late final ValueNotifier<String> _selectedProviderID =
-      ValueNotifier(context.read<UserModel>().careProviders.first.id);
+  late final ValueNotifier<CareProvider> _selectedProvider =
+      ValueNotifier(context.read<UserModel>().careProviders.first);
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
 
@@ -24,92 +25,77 @@ class MapWindowState extends State<MapWindow> {
 
   void addCustomIcon() {
     BitmapDescriptor.fromAssetImage(
-            const ImageConfiguration(), "assets/images/house_pin.png")
-        .then(
-      (icon) {
-        setState(() {
-          houseMarkerIcon = icon;
-        });
-      },
-    );
+      const ImageConfiguration(),
+      "assets/images/house_pin.png",
+    ).then((icon) => setState(() => houseMarkerIcon = icon));
   }
 
   @override
   void initState() {
-    _selectedProviderID.addListener(_centerOnProvider);
+    _selectedProvider.addListener(_centerOnProvider);
     addCustomIcon();
     super.initState();
   }
 
   @override
   void dispose() {
-    _selectedProviderID.removeListener(_centerOnProvider);
+    _selectedProvider.removeListener(_centerOnProvider);
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<ValueNotifier<String>>.value(
-      value: _selectedProviderID,
-      child: Stack(
-        fit: StackFit.passthrough,
-        children: [
-          GoogleMap(
+    return Stack(
+      fit: StackFit.passthrough,
+      children: [
+        ValueListenableBuilder(
+          valueListenable: _selectedProvider,
+          builder: (_, careProvider, __) => GoogleMap(
             myLocationButtonEnabled: false,
             buildingsEnabled: true,
             zoomControlsEnabled: true,
             zoomGesturesEnabled: true,
             mapType: MapType.normal,
-            initialCameraPosition: coordToCameraPos(context
-                .read<UserModel>()
-                .getProviderByID(_selectedProviderID.value)!
-                .coordinates),
+            initialCameraPosition: coordToCameraPos(
+              _selectedProvider.value.coordinates,
+            ),
             onMapCreated: (GoogleMapController controller) {
               _controller.complete(controller);
             },
-            markers: Set<Marker>.from(dummyCareProviders.map(
-              (careProvider) => Marker(
-                markerId: MarkerId(careProvider.id),
-                position: careProvider.coordinates,
-              ),
-            ))
-              ..addAll(uclaHomes.map((e) => Marker(
-                    markerId: MarkerId(UniqueKey().hashCode.toString()),
-                    position: e.homeInfo.coordinates,
-                    icon: houseMarkerIcon,
-                  )))
-              ..addAll(kaiserHomes.map((e) => Marker(
-                    markerId: MarkerId(UniqueKey().hashCode.toString()),
-                    position: e.homeInfo.coordinates,
-                    icon: houseMarkerIcon,
-                  )))
-              ..addAll(qwerHomes.map((e) => Marker(
-                    markerId: MarkerId(UniqueKey().hashCode.toString()),
-                    position: e.homeInfo.coordinates,
-                    icon: houseMarkerIcon,
-                  ))),
+            markers: _loadMarkers(careProvider),
           ),
-          BottomSheetWithButtons(centerOnProvider: _centerOnProvider),
-        ],
+        ),
+        ChangeNotifierProvider<ValueNotifier<CareProvider>>.value(
+          value: _selectedProvider,
+          child: BottomSheetWithButtons(centerOnProvider: _centerOnProvider),
+        ),
+      ],
+    );
+  }
+
+  Set<Marker> _loadMarkers(CareProvider provider) {
+    return {
+      Marker(markerId: MarkerId(provider.id), position: provider.coordinates),
+      ...dummyAvailableHomeMap[provider.id]!.map(
+        (homeowner) => Marker(
+          markerId: MarkerId(homeowner.homeInfo.coordinates.toString()),
+          position: homeowner.homeInfo.coordinates,
+          icon: houseMarkerIcon,
+        ),
+      ),
+    };
+  }
+
+  Future<void> _centerOnProvider() async {
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(
+      CameraUpdate.newCameraPosition(
+        coordToCameraPos(_selectedProvider.value.coordinates),
       ),
     );
   }
 
-  Future<void> _centerOnProvider() async {
-    final coordinates = context
-        .read<UserModel>()
-        .getProviderByID(_selectedProviderID.value)!
-        .coordinates;
-    final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(
-      CameraUpdate.newCameraPosition(coordToCameraPos(coordinates)),
-    );
-  }
-
   CameraPosition coordToCameraPos(LatLng coordinates) {
-    return CameraPosition(
-      target: coordinates,
-      zoom: 14.4746,
-    );
+    return CameraPosition(target: coordinates, zoom: 12);
   }
 }

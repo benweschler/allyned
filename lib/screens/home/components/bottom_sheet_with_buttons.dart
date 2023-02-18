@@ -68,8 +68,7 @@ class _BottomSheetWithButtonsState extends State<BottomSheetWithButtons> {
               initialChildSize: _initialSheetChildSize,
               maxChildSize: 0.9,
               minChildSize: 0.2,
-              builder:
-                  (BuildContext context, ScrollController scrollController) {
+              builder: (context, scrollController) {
                 return ModalSheet(
                   child: BottomSheetChildren(controller: scrollController),
                 );

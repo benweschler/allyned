@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'side.dart';
-import 'sun_moon.dart';
 
 import 'gooey_edge.dart';
 import 'gooey_edge_clipper.dart';
@@ -65,7 +64,6 @@ class GooeyCarouselState extends State<GooeyCarousel>
                   clipper: GooeyEdgeClipper(_edge, margin: 10.0),
                   child: widget.children[_dragIndex! % l],
                 ),
-          SunAndMoon(index: _dragIndex, isDragComplete: _dragCompleted),
         ],
       ),
     );

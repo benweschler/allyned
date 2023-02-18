@@ -7,7 +7,7 @@ String loginSPKey = "5FD6G46SDF4GD64F1VG9SD68";
 String onboardSPKey = "GD2G82CG9G82VDFGVD22DVG";
 
 class AppService extends ChangeNotifier {
-  late final SharedPreferences sharedPreferences;
+  final SharedPreferences sharedPreferences;
   final StreamController<bool> _loginStateChange = StreamController<bool>.broadcast();
   bool _loginState = false;
   bool _initialized = false;
